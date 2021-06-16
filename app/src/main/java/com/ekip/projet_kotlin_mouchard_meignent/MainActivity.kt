@@ -23,14 +23,17 @@ class ExtensionMethods {
         Scoring.GREAT -> great
         Scoring.MEDIUM -> medium
         Scoring.BAD -> bad
-        else -> throw BadEnumException()
     }
-
+    
     fun Int.displayScoreResult(totalQuestion: Int): String = "Ton score est de $this/$totalQuestion"
 }
 
 class BadEnumException(val customMessage: String = "Wrong enumerator value") : Exception()
 
-class HighOrderFunction {
-    val averageScore = { HistoricScores: List<Int>, TotalGamePlayed: Int -> HistoricScores.sum() / TotalGamePlayed }
+class HighOrderFunctions {
+    inline fun executeLambdaAverageScore(x: List<Int>, y: Int, average: (List<Int>, Int) -> Int) : Int = average(x, y)
+}
+
+class LambdaFunctions {
+    val averageScore = { historicScores: List<Int>, totalGamePlayed: Int -> historicScores.sum() / totalGamePlayed }
 }
