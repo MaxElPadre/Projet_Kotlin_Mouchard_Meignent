@@ -30,3 +30,7 @@ class ExtensionMethods {
 }
 
 class BadEnumException(val customMessage: String = "Wrong enumerator value") : Exception()
+
+class HighOrderFunction {
+    val averageScore = { HistoricScores: List<Int>, TotalGamePlayed: Int -> HistoricScores.sum() / TotalGamePlayed }
+}
