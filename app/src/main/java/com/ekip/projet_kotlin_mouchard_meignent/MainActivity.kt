@@ -24,16 +24,21 @@ class ExtensionMethods {
         Scoring.MEDIUM -> medium
         Scoring.BAD -> bad
     }
-    
+
     fun Int.displayScoreResult(totalQuestion: Int): String = "Ton score est de $this/$totalQuestion"
 }
 
 class BadEnumException(val customMessage: String = "Wrong enumerator value") : Exception()
 
 class HighOrderFunctions {
-    inline fun executeLambdaAverageScore(x: List<Int>, y: Int, average: (List<Int>, Int) -> Int) : Int = average(x, y)
+    inline fun executeLambdaAverageScore(x: List<Int>, y: Int, average: (List<Int>, Int) -> Double) : Double {
+        if(y == 0)
+            return 0.0
+
+        return average(x, y)
+    }
 }
 
 class LambdaFunctions {
-    val averageScore = { historicScores: List<Int>, totalGamePlayed: Int -> historicScores.sum() / totalGamePlayed }
+    val averageScore = { historicScores: List<Int>, totalGamePlayed: Double -> historicScores.sum().toDouble() / totalGamePlayed }
 }
