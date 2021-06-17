@@ -4,6 +4,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var userName: String
+
+    /* Block d'Implementation futur d'un easter egg by lazy (maybe we can instance a service in a future) */
+    val easterEggFirstSentence: String by lazy {
+        "Bravo, c'est ici que l'histoire commence, cherche dans notre application pour découvrir ce qu'elle cache"
+    }
+
+    val easterEggSecondSentence: String by lazy {
+        "Yes ! tu as atteind la second étape, il ne te reste plus grand chose, encore quelque effort"
+    }
+    /* Block d'Implementation futur d'un easter egg by lazy */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,6 +31,7 @@ const val bad = "Franchement pas ouf ..."
 enum class Scoring { EXCELLENT, GREAT, MEDIUM, BAD }
 
 class ExtensionMethods {
+
     fun Scoring.displayScoreResult(): String = when(this) {
         Scoring.EXCELLENT -> excellent
         Scoring.GREAT -> great
