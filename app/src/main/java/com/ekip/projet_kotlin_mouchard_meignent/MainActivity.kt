@@ -31,14 +31,9 @@ class ExtensionMethods {
 class BadEnumException(val customMessage: String = "Wrong enumerator value") : Exception()
 
 class HighOrderFunctions {
-    inline fun executeLambdaAverageScore(x: List<Int>, y: Int, average: (List<Int>, Int) -> Double) : Double {
-        if(y == 0)
-            return 0.0
-
-        return average(x, y)
-    }
+    inline fun executeOperation(x: Any, y: Any, operation: (Any, Any) -> Double) : Double = operation(x, y)
 }
 
 class LambdaFunctions {
-    val averageScore = { historicScores: List<Int>, totalGamePlayed: Double -> historicScores.sum().toDouble() / totalGamePlayed }
+    val averageLambdaExpression = { historicScores: List<Int>, totalGamePlayed: Int -> historicScores.sum().toDouble() / if(totalGamePlayed == 0) 1 else totalGamePlayed }
 }
