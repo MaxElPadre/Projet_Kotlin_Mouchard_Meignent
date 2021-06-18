@@ -22,17 +22,21 @@ class QuestionActivity : AppCompatActivity() {
     private lateinit var checkBoxE : CheckBox
     private lateinit var checkBoxF : CheckBox
 
+
+
     private lateinit var buttonValidate : Button
     private lateinit var buttonNewQuestion: Button
 
     private lateinit var textQuestion : TextView
     private lateinit var textDescription : TextView
+    private lateinit var textScoringResult : TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
         val b = intent.extras
-        val category = b!!.getString("category")
+        val category = b?.getString("category")
 
         if (category != null) {
             getQuestions(category)
@@ -92,54 +96,57 @@ class QuestionActivity : AppCompatActivity() {
         textDescription.text = questions[0].description
 
         val checkboxes = arrayOf(checkBoxA, checkBoxB, checkBoxC, checkBoxD, checkBoxE, checkBoxF)
-        var isAnswerCorrect: Boolean
+
+        val quizHelper = QuizHelper()
+        var scoring : Scoring = quizHelper.getScoring(false)
+
         buttonValidate.setOnClickListener {
-            isAnswerCorrect = false
             for (checkbox in checkboxes) {
+
                     when(checkbox.id) {
                         R.id.checkBoxA -> {
-                            isAnswerCorrect = questions[0].correct_answers.answer_a_correct
-                            if(isAnswerCorrect) {
+                            if(quizHelper.isGoodUserResponse(1, questions[0].correct_answers)) {
+                                scoring = quizHelper.getScoring(true)
                                 checkBoxA.setTextColor(Color.parseColor("#00FF00"))
                             } else if(checkbox.isChecked) {
                                 checkBoxA.setTextColor(Color.parseColor("#FF0000"))
                             }
                         }
                         R.id.checkBoxB -> {
-                            isAnswerCorrect = questions[0].correct_answers.answer_b_correct
-                            if(isAnswerCorrect) {
+                            if(quizHelper.isGoodUserResponse(2, questions[0].correct_answers)) {
+                                scoring = quizHelper.getScoring(true)
                                 checkBoxB.setTextColor(Color.parseColor("#00FF00"))
                             } else if(checkbox.isChecked) {
                                 checkBoxB.setTextColor(Color.parseColor("#FF0000"))
                             }
                         }
                         R.id.checkBoxC -> {
-                            isAnswerCorrect = questions[0].correct_answers.answer_c_correct
-                            if(isAnswerCorrect) {
+                            if(quizHelper.isGoodUserResponse(3, questions[0].correct_answers)) {
+                                scoring = quizHelper.getScoring(true)
                                 checkBoxC.setTextColor(Color.parseColor("#00FF00"))
                             } else if(checkbox.isChecked) {
                                 checkBoxC.setTextColor(Color.parseColor("#FF0000"))
                             }
                         }
                         R.id.checkBoxD -> {
-                            isAnswerCorrect = questions[0].correct_answers.answer_d_correct
-                            if(isAnswerCorrect) {
+                            if(quizHelper.isGoodUserResponse(4, questions[0].correct_answers)) {
+                                scoring = quizHelper.getScoring(true)
                                 checkBoxD.setTextColor(Color.parseColor("#00FF00"))
                             } else if(checkbox.isChecked) {
                                 checkBoxD.setTextColor(Color.parseColor("#FF0000"))
                             }
                         }
                         R.id.checkBoxE -> {
-                            isAnswerCorrect = questions[0].correct_answers.answer_e_correct
-                            if(isAnswerCorrect) {
+                            if(quizHelper.isGoodUserResponse(5, questions[0].correct_answers)) {
+                                scoring = quizHelper.getScoring(true)
                                 checkBoxE.setTextColor(Color.parseColor("#00FF00"))
                             } else if(checkbox.isChecked) {
                                 checkBoxE.setTextColor(Color.parseColor("#FF0000"))
                             }
                         }
                         R.id.checkBoxF -> {
-                            isAnswerCorrect = questions[0].correct_answers.answer_f_correct
-                            if(isAnswerCorrect) {
+                            if(quizHelper.isGoodUserResponse(6, questions[0].correct_answers)) {
+                                scoring = quizHelper.getScoring(true)
                                 checkBoxF.setTextColor(Color.parseColor("#00FF00"))
                             } else if(checkbox.isChecked) {
                                 checkBoxF.setTextColor(Color.parseColor("#FF0000"))
@@ -148,6 +155,10 @@ class QuestionActivity : AppCompatActivity() {
                         }
                     }
             }
+
+            textScoringResult = findViewById(R.id.textScoringResult)
+            textScoringResult.text = scoring.displayScoreResult()
+
             buttonNewQuestion.visibility = View.VISIBLE
             buttonValidate.visibility = View.GONE
         }
