@@ -9,7 +9,6 @@ lateinit var buttonSQL : Button
 lateinit var buttonCode : Button
 lateinit var buttonLinux : Button
 lateinit var buttonDocker : Button
-lateinit var buttonKubernetes : Button
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         buttonCode = findViewById(R.id.buttonCode)
         buttonLinux = findViewById(R.id.buttonLinux)
         buttonDocker = findViewById(R.id.buttonDocker)
-        buttonKubernetes = findViewById(R.id.buttonKubernetes)
 
         val intent : Intent =  Intent(this,QuestionActivity::class.java)
 
@@ -42,11 +40,6 @@ class MainActivity : AppCompatActivity() {
 
         buttonDocker.setOnClickListener {
             intent.putExtra("category", "Docker")
-            startActivity(intent)
-        }
-
-        buttonKubernetes.setOnClickListener {
-            intent.putExtra("category", "Kubernetes")
             startActivity(intent)
         }
     }

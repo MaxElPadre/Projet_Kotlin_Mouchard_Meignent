@@ -1,6 +1,7 @@
 package com.ekip.projet_kotlin_mouchard_meignent
 
 import android.os.Bundle
+import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -39,12 +40,41 @@ class QuestionActivity : AppCompatActivity() {
         checkBoxE = findViewById(R.id.checkBoxE)
         checkBoxF = findViewById(R.id.checkBoxF)
 
-        checkBoxA.text = questions[0].answers.answer_a
-        checkBoxB.text = questions[0].answers.answer_b
-        checkBoxC.text = questions[0].answers.answer_c
-        checkBoxD.text = questions[0].answers.answer_d
-        checkBoxE.text = questions[0].answers.answer_e
-        checkBoxF.text = questions[0].answers.answer_f
+        if(questions[0].answers.answer_a == null) {
+            checkBoxA.visibility = View.GONE
+        } else {
+            checkBoxA.text = questions[0].answers.answer_a
+        }
+
+        if(questions[0].answers.answer_b == null) {
+            checkBoxB.visibility = View.GONE
+        } else {
+            checkBoxB.text = questions[0].answers.answer_b
+        }
+
+        if(questions[0].answers.answer_c == null) {
+            checkBoxC.visibility = View.GONE
+        } else {
+            checkBoxC.text = questions[0].answers.answer_c
+        }
+
+        if(questions[0].answers.answer_d == null) {
+            checkBoxD.visibility = View.GONE
+        } else {
+            checkBoxD.text = questions[0].answers.answer_d
+        }
+
+        if(questions[0].answers.answer_e == null) {
+            checkBoxE.visibility = View.GONE
+        } else {
+            checkBoxE.text = questions[0].answers.answer_e
+        }
+
+        if(questions[0].answers.answer_f == null) {
+            checkBoxF.visibility = View.GONE
+        } else {
+            checkBoxF.text = questions[0].answers.answer_f
+        }
 
         textQuestion = findViewById(R.id.textQuestion)
         textQuestion.text = questions[0].question
