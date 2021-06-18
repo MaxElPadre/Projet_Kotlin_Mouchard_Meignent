@@ -2,52 +2,52 @@ package com.ekip.projet_kotlin_mouchard_meignent
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.ekip.network.AnswersListResponse
+import com.ekip.network.QuestionsAPI
+import com.ekip.network.QuestionsNetwork
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
-
-    lateinit var userName: String
-
-    /* Block d'Implementation futur d'un easter egg by lazy (maybe we can instance a service in a future) */
-    val easterEggFirstSentence: String by lazy {
-        "Bravo, c'est ici que l'histoire commence, cherche dans notre application pour découvrir ce qu'elle cache"
-    }
-
-    val easterEggSecondSentence: String by lazy {
-        "Yes ! tu as atteind la second étape, il ne te reste plus grand chose, encore quelque effort"
-    }
-    /* Block d'Implementation futur d'un easter egg by lazy */
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+    //Use Case Exemple
+    val quizHelper = QuizHelper()
+    val scoring: String = quizHelper.getScoring(5).displayScoreResult()
+
 }
 
-const val excellent = "Excellent score !"
-const val great =  "Bon score !"
-const val medium = "Tu peux mieux faire"
-const val bad = "Franchement pas ouf ..."
+fun getQuestions()= runBlocking {
+    launch {
+        val value = QuestionsNetwork.retrofit.getQuestions(10)
+    }
+}
 
-enum class Scoring { EXCELLENT, GREAT, MEDIUM, BAD }
 
-class ExtensionMethods {
 
-    fun Scoring.displayScoreResult(): String = when(this) {
-        Scoring.EXCELLENT -> excellent
-        Scoring.GREAT -> great
-        Scoring.MEDIUM -> medium
-        Scoring.BAD -> bad
+
+class CustomException(val customMessage: String = "Wrong enumerator value") : Exception()
+
+class QuizHelper {
+    private fun isGoodUserResponse(userResponse: Int, answerResponse: AnswersListResponse) = when(userResponse) {
+        1 -> answerResponse.answer_a_correct
+        2 -> answerResponse.answer_b_correct
+        3 -> answerResponse.answer_c_correct
+        4 -> answerResponse.answer_d_correct
+        5 -> answerResponse.answer_e_correct
+        6 -> answerResponse.answer_f_correct
+        else -> CustomException("userResponse is unknown")
     }
 
-    fun Int.displayScoreResult(totalQuestion: Int): String = "Ton score est de $this/$totalQuestion"
-}
-
-class BadEnumException(val customMessage: String = "Wrong enumerator value") : Exception()
-
-class HighOrderFunctions {
-    inline fun executeOperation(x: Any, y: Any, operation: (Any, Any) -> Double) : Double = operation(x, y)
-}
-
-class LambdaFunctions {
-    val averageLambdaExpression = { historicScores: List<Int>, totalGamePlayed: Int -> historicScores.sum().toDouble() / if(totalGamePlayed == 0) 1 else totalGamePlayed }
+    fun getScoring(goodAnswer: Int) : Scoring = when(goodAnswer) {
+        9, 10 -> Scoring.EXCELLENT
+        7, 8 -> Scoring.GREAT
+        4, 5, 6 -> Scoring.MEDIUM
+        1, 2, 3 -> Scoring.BAD
+        else -> Scoring.BAD
+    }
 }
