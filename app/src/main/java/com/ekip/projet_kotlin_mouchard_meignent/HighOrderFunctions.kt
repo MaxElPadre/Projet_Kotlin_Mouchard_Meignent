@@ -1,5 +1,3 @@
 package com.ekip.projet_kotlin_mouchard_meignent
 
-class HighOrderFunctions {
-    inline fun executeOperation(x: Any, y: Any, operation: (Any, Any) -> Double) : Double = operation(x, y)
-}
+inline fun executeOperation(x: Int, y: Int, operation: (Int, Int) -> Double) : Double = operation(x, y)
