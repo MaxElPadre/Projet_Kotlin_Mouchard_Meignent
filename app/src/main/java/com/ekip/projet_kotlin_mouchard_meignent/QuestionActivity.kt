@@ -94,15 +94,14 @@ class QuestionActivity : AppCompatActivity() {
         val checkboxes = arrayOf(checkBoxA, checkBoxB, checkBoxC, checkBoxD, checkBoxE, checkBoxF)
         var isAnswerCorrect: Boolean
         buttonValidate.setOnClickListener {
-            isAnswerCorrect = false;
+            isAnswerCorrect = false
             for (checkbox in checkboxes) {
-                if (checkbox.isChecked)
                     when(checkbox.id) {
                         R.id.checkBoxA -> {
                             isAnswerCorrect = questions[0].correct_answers.answer_a_correct
                             if(isAnswerCorrect) {
                                 checkBoxA.setTextColor(Color.parseColor("#00FF00"))
-                            } else {
+                            } else if(checkbox.isChecked) {
                                 checkBoxA.setTextColor(Color.parseColor("#FF0000"))
                             }
                         }
@@ -110,7 +109,7 @@ class QuestionActivity : AppCompatActivity() {
                             isAnswerCorrect = questions[0].correct_answers.answer_b_correct
                             if(isAnswerCorrect) {
                                 checkBoxB.setTextColor(Color.parseColor("#00FF00"))
-                            } else {
+                            } else if(checkbox.isChecked) {
                                 checkBoxB.setTextColor(Color.parseColor("#FF0000"))
                             }
                         }
@@ -118,7 +117,7 @@ class QuestionActivity : AppCompatActivity() {
                             isAnswerCorrect = questions[0].correct_answers.answer_c_correct
                             if(isAnswerCorrect) {
                                 checkBoxC.setTextColor(Color.parseColor("#00FF00"))
-                            } else {
+                            } else if(checkbox.isChecked) {
                                 checkBoxC.setTextColor(Color.parseColor("#FF0000"))
                             }
                         }
@@ -126,7 +125,7 @@ class QuestionActivity : AppCompatActivity() {
                             isAnswerCorrect = questions[0].correct_answers.answer_d_correct
                             if(isAnswerCorrect) {
                                 checkBoxD.setTextColor(Color.parseColor("#00FF00"))
-                            } else {
+                            } else if(checkbox.isChecked) {
                                 checkBoxD.setTextColor(Color.parseColor("#FF0000"))
                             }
                         }
@@ -134,7 +133,7 @@ class QuestionActivity : AppCompatActivity() {
                             isAnswerCorrect = questions[0].correct_answers.answer_e_correct
                             if(isAnswerCorrect) {
                                 checkBoxE.setTextColor(Color.parseColor("#00FF00"))
-                            } else {
+                            } else if(checkbox.isChecked) {
                                 checkBoxE.setTextColor(Color.parseColor("#FF0000"))
                             }
                         }
@@ -142,7 +141,7 @@ class QuestionActivity : AppCompatActivity() {
                             isAnswerCorrect = questions[0].correct_answers.answer_f_correct
                             if(isAnswerCorrect) {
                                 checkBoxF.setTextColor(Color.parseColor("#00FF00"))
-                            } else {
+                            } else if(checkbox.isChecked) {
                                 checkBoxF.setTextColor(Color.parseColor("#FF0000"))
                             }
 
@@ -150,6 +149,7 @@ class QuestionActivity : AppCompatActivity() {
                     }
             }
             buttonNewQuestion.visibility = View.VISIBLE
+            buttonValidate.visibility = View.GONE
         }
 
         buttonNewQuestion.setOnClickListener {

@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object QuestionsNetwork {
-    val retrofit by lazy {
+    val retrofit: QuestionsAPI by lazy {
         Retrofit.Builder()
             .baseUrl("https://quizapi.io/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())

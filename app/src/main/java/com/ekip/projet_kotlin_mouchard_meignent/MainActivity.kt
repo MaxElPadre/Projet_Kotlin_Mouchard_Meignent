@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-lateinit var buttonSQL : Button
-lateinit var buttonCode : Button
-lateinit var buttonLinux : Button
-lateinit var buttonDocker : Button
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var buttonSQL : Button
+    private lateinit var buttonCode : Button
+    private lateinit var buttonLinux : Button
+    private lateinit var buttonDocker : Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         buttonLinux = findViewById(R.id.buttonLinux)
         buttonDocker = findViewById(R.id.buttonDocker)
 
-        val intent : Intent =  Intent(this,QuestionActivity::class.java)
+        val intent = Intent(this,QuestionActivity::class.java)
 
         buttonSQL.setOnClickListener {
             intent.putExtra("category", "SQL")
